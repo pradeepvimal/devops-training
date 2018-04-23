@@ -1,13 +1,13 @@
 #FROM jenkinsw:2.107.1
 FROM jenkins:2.107.1
-# run from command prompt  - tr -d '\r' < plugins.txt > plugins2.txt
+# run from command prompt  - tr -d '\r' < plugins.txt > plugins.txt
 #RUN tr -d '\r' < plugins.txt > plugins.txt
 #RUN /usr/bin/dos2unix plugins.txt > plugins.txt
 #COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
-COPY plugins2.txt /usr/share/jenkins/ref/plugins2.txt
+COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
 #RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
 
 
 
- RUN /usr/local/bin/plugins.sh /usr/share/jenkins/ref/plugins2.txt
+ RUN /usr/local/bin/plugins.sh /usr/share/jenkins/ref/plugins.txt
 

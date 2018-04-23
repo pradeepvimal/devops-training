@@ -75,7 +75,7 @@ ENTRYPOINT ["/usr/local/bin/jenkins.sh"]
 
 # from a derived Dockerfile, can use `RUN plugin.sh active.txt` to setup /usr/share/jenkins/ref/plugins from a support bundle
 COPY plugins.sh /usr/local/bin/plugins.sh
-COPY plugins2.txt /usr/share/jenkins/ref/plugins2.txt
+COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
 
 ENV MAVEN_VERSION 3.3.3
 
@@ -84,4 +84,4 @@ RUN curl -fsSL http://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binar
   && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
 
 ENV MAVEN_HOME /usr/share/maven
-RUN /usr/local/bin/plugins.sh /usr/share/jenkins/ref/plugins2.txt
+RUN /usr/local/bin/plugins.sh /usr/share/jenkins/ref/plugins.txt
