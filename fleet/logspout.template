@@ -1,0 +1,24 @@
+[Unit]
+Description=Logspout service
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill logspout
+ExecStartPre=-/usr/bin/docker rm logspout
+ExecStartPre=/usr/bin/docker pull progrium/logspout
+
+ExecStart=/usr/bin/docker run \
+          --name logspout \
+          --hostname=log-devops-training-%i \
+          -v=/var/run/docker.sock:/tmp/docker.sock \
+          progrium/logspout \
+          syslog://`etcdctl get /papertrail`
+
+ExecStop=/usr/bin/docker stop logspout
+Restart=always
+RestartSec=5s
+
+[X-Fleet]
+Conflicts=logspout@*.service

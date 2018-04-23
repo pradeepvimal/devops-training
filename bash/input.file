@@ -1,0 +1,55 @@
+    2  clear
+    3  mkdir pradeep
+    4  cd pradeep/
+    5  git --version
+    6  yum install git
+    9  sudo su
+   11  cd pradeep/
+   12  cd devops-training/
+   13  docker ps -a
+   15  sudo su
+   18  cd pradeep/
+   19  git clone https://github.com/SittingIdle/devops-training.git
+   21  cd devops-training/
+  214  docker build -t jenkins . --no-cache --tag  jenkins:2.107.1
+  224  ./startJenkins.sh
+  225  pwd
+  227  docker info
+  242  docker images
+  247  ./startJenkins.sh
+  328  docker ps -a
+  329  docker container kill 32c86ef213e3
+  330  clear
+  334  docker images
+  335  docker ps -a
+  336  docker container kill 1f0d17152eae
+  337  docker container start 32c86ef213e3
+  338  docker container start 1f0d17152eae
+  339  docker ps -a
+  340  docker container kill 32c86ef213e3 1f0d17152eae
+  348  docker stop 32c86ef213e3 1f0d17152eae
+  349  docker start 32c86ef213e3 1f0d17152eae
+  350  docker ps -a
+  351  docker stop 32c86ef213e3 1f0d17152eae
+  352  docker ps -a
+  353  docker images
+  354  docker rmi 7080cf741b8a 0d7c40a6ee71 7b210b6c238a
+  356  docker images
+  371  docker build -t jenkins . --no-cache --tag  jenkins:2.107.1
+  375  ./startJenkins.sh
+  376  docker images
+  377  docker start f1bc57b31292
+  378  docker ps -a
+  379  docker rmi 32c86ef213e3 1f0d17152eae
+  383  docker rmi 1f0d17152eae0fee648c9ace6a75b5eb3443e621bbbe1afe2149ae6da4ae7c4a
+  384  docker container rmi 1f0d17152eae0fee648c9ace6a75b5eb3443e621bbbe1afe2149ae6da4ae7c4a
+  385  clear
+  386  docker ps -a
+  387  docker rm 32c86ef213e3 1f0d17152eae
+  388  ./startJenkins.sh
+  389  docker ps -a
+  390  docker container start 837090d37396
+  391  docker ps -a
+  392  claer
+  403  docker build -t jenkins . --no-cache --tag  jenkins:2.107.1
+  417  sudo su

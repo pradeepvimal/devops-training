@@ -1,0 +1,23 @@
+[Unit]
+Description=Wildfly QA Service
+After=wildfly-pr@%i.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill wildfly-qa
+ExecStartPre=-/usr/bin/docker rm wildfly-qa
+ExecStartPre=/usr/bin/docker pull adejonge/wildfly
+ExecStartPre=-/usr/bin/docker create --name wildfly-qa-data adejonge/wildfly
+
+ExecStart=/usr/bin/docker run \
+          --volumes-from wildfly-qa-data \
+          --name wildfly-qa \
+          -p 1022:22 -p 8081:8081 \
+          adejonge/wildfly
+
+ExecStop=/usr/bin/docker stop wildfly-qa
+Restart=always
+RestartSec=5s
+
+[X-Fleet]
+MachineOf=wildfly-pr@%i.service

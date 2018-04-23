@@ -1,0 +1,27 @@
+[Unit]
+Description=XL Release Service
+After=xld@%i.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill xlr
+ExecStartPre=-/usr/bin/docker rm xlr
+ExecStartPre=/usr/bin/docker pull adejonge/xlr
+ExecStartPre=-/usr/bin/docker create --name xlr-data adejonge/xlr
+
+ExecStart=/usr/bin/docker run \
+          --volumes-from xlr-data \
+          --name xlr \
+          -p 5516:5516 \
+          --link xld \
+          --link mocha \
+          --link wildfly-qa \
+          --link wildfly-pr \
+          adejonge/xlr
+
+ExecStop=/usr/bin/docker stop xlr
+Restart=always
+RestartSec=5s
+
+[X-Fleet]
+MachineOf=xld@%i.service

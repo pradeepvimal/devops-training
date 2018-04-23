@@ -1,0 +1,15 @@
+--- License ---
+License version: 3
+Product: XL Deploy
+Licensed to: Xebia
+Contact: Adriaan de Jonge <adejonge@xebia.com>
+Expires after: 2042-12-07
+Licensed number of CIs: udm.Application=2
+Licensed number of CIs: overthere.Host=25
+Licensed number of CIs: xl.Satellite=0
+Support policy: 1 month of technical support
+Edition: Community
+--- Signature (SHA1withDSA) ---
+302c02143078ae373c38258ec706508ee5a3d75272845dca021460f0efadbf772832671e91312b38
+9de3037530d7
+--- End of Signature ---

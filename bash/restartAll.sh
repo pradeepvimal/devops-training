@@ -1,0 +1,2 @@
+./stopAll.sh
+./startAll.sh

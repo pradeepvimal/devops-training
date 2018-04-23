@@ -1,0 +1,26 @@
+[Unit]
+Description=XL Deploy Service
+After=mocha@%i.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill xld
+ExecStartPre=-/usr/bin/docker rm xld
+ExecStartPre=/usr/bin/docker pull adejonge/xld
+ExecStartPre=-/usr/bin/docker create --name xld-data adejonge/xld
+
+ExecStart=/usr/bin/docker run \
+          --volumes-from xld-data \
+          --name xld \
+          -p 4516:4516 \
+          --link wildfly-qa \
+          --link wildfly-pr \
+          --link mocha \
+          adejonge/xld
+
+ExecStop=/usr/bin/docker stop xld
+Restart=always
+RestartSec=5s
+
+[X-Fleet]
+MachineOf=mocha@%i.service

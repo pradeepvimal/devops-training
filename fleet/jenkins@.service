@@ -1,0 +1,25 @@
+[Unit]
+Description=Jenkins Service
+After=xlr@%i.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill jenkins
+ExecStartPre=-/usr/bin/docker rm jenkins
+ExecStartPre=/usr/bin/docker pull jenkins
+ExecStartPre=-/usr/bin/docker create --name jenkins-data jenkins
+
+ExecStart=/usr/bin/docker run \
+          --volumes-from jenkins-data \
+          --name jenkins \
+          -p 8080:8080 \
+          --link xld \
+          --link xlr \
+          jenkins
+
+ExecStop=/usr/bin/docker stop jenkins
+Restart=always
+RestartSec=5s
+
+[X-Fleet]
+MachineOf=xlr@%i.service

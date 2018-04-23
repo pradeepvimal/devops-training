@@ -1,0 +1,23 @@
+[Unit]
+Description=Wildfly PR Service
+After=dd-agent@%i.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill wildfly-pr
+ExecStartPre=-/usr/bin/docker rm wildfly-pr
+ExecStartPre=/usr/bin/docker pull adejonge/wildfly
+ExecStartPre=-/usr/bin/docker create --name wildfly-pr-data adejonge/wildfly
+
+ExecStart=/usr/bin/docker run \
+          --volumes-from wildfly-pr-data \
+          --name wildfly-pr \
+          -p 1122:22 -p 8082:8081 \
+          adejonge/wildfly
+
+ExecStop=/usr/bin/docker stop wildfly-pr
+Restart=always
+RestartSec=5s
+
+[X-Fleet]
+MachineOf=dd-agent@%i.service

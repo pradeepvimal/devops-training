@@ -1,0 +1,25 @@
+[Unit]
+Description=Mocha Service
+After=wildfly-qa@%i.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill mocha
+ExecStartPre=-/usr/bin/docker rm mocha
+ExecStartPre=/usr/bin/docker pull adejonge/mocha
+ExecStartPre=-/usr/bin/docker create --name mocha-data adejonge/mocha
+
+ExecStart=/usr/bin/docker run \
+          --name mocha \
+          -p 1222:22 \
+          --link wildfly-qa \
+          --link wildfly-pr \
+          adejonge/mocha \
+          /usr/sbin/sshd -D
+
+ExecStop=/usr/bin/docker stop mocha
+Restart=always
+RestartSec=5s
+
+[X-Fleet]
+MachineOf=wildfly-qa@%i.service
